@@ -1,31 +1,31 @@
-import Image from "next/image";
+"use client"
+
 import Links from "./Links/Links";
 import styles from "./NavBar.module.css";
 import AuthLinks from "./AuthLinks/AuthLinks";
+import Logo from "../ReusableComponents/ImageModified";
+import ImageModified from "../ReusableComponents/ImageModified";
 
 const NavBar = ({restClass}: any) => {
     return (
-        <nav className={`flex justify-center items-center w-full mb-10`}>
-            <div 
-            className="
-                w-[60px] h-[60px]
-                md:w-[60px] md:h-[60px]
-                lg:w-[60px] lg:h-[60px]
-                relative">
-                <Image 
-                    src="/logo.png" 
-                    alt="Logo"
-                    className={`object-contain`}
-                    fill
-                />
-            </div>
-            <div className="flex-1 flex justify-center">
+        <div className="flex flex-col pt-3 mb-10">
+            <nav className={`flex justify-center items-center w-full`}>
+                <div 
+                className="
+                md:flex-1 justify-start">
+                    <ImageModified src="/logo.png" alt="Logo" />
+                </div>
+                <div className={`flex-1 justify-center ${styles.elementRemove}`}>
+                    <Links />
+                </div>
+                <div className={`flex-1 flex justify-end`}>
+                    <AuthLinks />
+                </div>
+            </nav>
+            <div className={`flex justify-center mt-2 ${styles.linksLittleScreen}`}>
                 <Links />
             </div>
-            <div className="">
-                <AuthLinks />
-            </div>
-        </nav>
+        </div>
     );
 }
 

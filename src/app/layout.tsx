@@ -25,12 +25,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="container min-h-screen w-[100%]">
-          <NavBar />
-          <div className="body">
+        <div className="flex flex-col min-h-screen justify-between w-full">
+          <div className="space">
+            <NavBar />
+          </div>
+          <div className="space body">
             {children}
           </div>
-          <Footer />
+          <div className="w-full bg-red-200">
+            <Footer />
+          </div>
         </div>
       </body>
     </html>

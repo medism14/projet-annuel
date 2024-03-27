@@ -1,0 +1,29 @@
+@media (min-width: 300px) {
+    .elementRemove {
+        display: none;
+    }
+
+    .linksLittleScreen {
+        display: flex;
+    }
+}
+
+@media (min-width: 768px) {
+    .elementRemove {
+        display: none;
+    }
+
+    .linksLittleScreen {
+        display: flex;
+    }
+}
+
+@media (min-width: 1024px) {
+    .elementRemove {
+        display: flex;
+    }
+
+    .linksLittleScreen {
+        display: none;
+    }
+}
