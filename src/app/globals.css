@@ -4,7 +4,7 @@
 
 :root {
   --primary-color: #93A386;
-  --secondary-color: #FFFFFF;
+  --secondary-color: #F8FFF6;
   --tertiary-color: #000000;
   --accent-color: #596351;
   --background-color: #E8F5E2;
@@ -39,25 +39,4 @@
   }
 }
 
-.body {
-  flex: 1;
-  flex-direction: column;
-}
 
-@media (min-width: 300px) {
-  .body {
-    padding: 10px 20px;
-  }
-}
-
-@media (min-width: 768px) {
-  .body {
-    padding: 10px 60px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .body {
-    padding: 10px 120px;
-  }
-}

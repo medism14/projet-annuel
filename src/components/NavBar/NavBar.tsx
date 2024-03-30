@@ -3,7 +3,6 @@
 import Links from "./Links/Links";
 import styles from "./NavBar.module.css";
 import AuthLinks from "./AuthLinks/AuthLinks";
-import Logo from "../ReusableComponents/ImageModified";
 import ImageModified from "../ReusableComponents/ImageModified";
 
 const NavBar = ({restClass}: any) => {

@@ -14,6 +14,7 @@ const ImageModified = ({src, alt, specialSize}: any) => {
                     alt={alt || "Image"}
                     className={`object-contain flex bg-inherit`}
                     fill
+                    sizes="auto"
                 />
             </div>
         );
@@ -33,6 +34,8 @@ const ImageModified = ({src, alt, specialSize}: any) => {
                 alt={alt || "Image"}
                 className={`object-contain flex bg-inherit`}
                 fill
+                sizes="auto"
+                priority={true}
             />
         </div>
     );
