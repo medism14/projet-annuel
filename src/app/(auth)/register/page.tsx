@@ -2,15 +2,54 @@
 import DivInput from "@/components/Form/DivInput/DivInput";
 import Input from "@/components/Form/DivInput/Input/Input";
 import Form from "@/components/Form/Form";
+import { setUserState } from "@/redux/features/AppState";
+import axios from "axios";
 import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation'
+import { useEffect } from "react";
+import { useAppSelector, useAppDispatch } from "@/redux/hooks";
+
 
 const RegisterPage = () => {
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors }, reset } = useForm();
+    const router = useRouter();
+    const userState = useAppSelector(state => state.AppState.userState);
+    const dispatch = useAppDispatch();
 
     const handleRegister = async (data: any) => {
-        console.log('handled register');
+        reset();
+        
+        const { firstName, lastName, email, password }: { firstName: string, lastName: string, email: string, password: string} = data;
+        
+        try {
+            await axios.post("http://localhost:3001/api/users", {
+                email: email,
+                name: `${firstName} ${lastName}`,
+                password: password
+            });
+            
+            let response = await axios.post("http://localhost:3001/api/users/login", {
+                email: email,
+                password: password
+            });
+            
+            let data = await response.data;
+
+            localStorage.setItem("accessToken", data.accessToken);
+            localStorage.setItem("logged", "true");
+            dispatch(setUserState(!userState));
+            router.push('/');
+        } catch (error) {
+            console.error(error);
+        }
     }
+
+    useEffect(() => {
+        if (localStorage.getItem("logged") == "true") {
+            router.push("/");
+        }        
+    }, [])
 
     return (
         <Form title="Inscription" buttonValue={"S'inscrire"} onClick={handleSubmit(handleRegister)}>
@@ -75,3 +114,7 @@ const RegisterPage = () => {
 }
 
 export default RegisterPage;
+
+function dispatch(arg0: { payload: boolean; type: "AppState/setUserState"; }) {
+    throw new Error("Function not implemented.");
+}

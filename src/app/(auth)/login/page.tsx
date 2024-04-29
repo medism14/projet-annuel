@@ -1,16 +1,46 @@
 "use client"
 import DivInput from "@/components/Form/DivInput/DivInput";
-import Input from "@/components/Form/DivInput/Input/Input";
 import Form from "@/components/Form/Form";
 import { useForm } from "react-hook-form";
+import axios from "axios";
+import { setUserState } from "@/redux/features/AppState";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 const LoginPage = () => {
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors }, reset } = useForm();
+    const dispatch = useAppDispatch();
+    const router = useRouter();
+    const userState = useAppSelector(state => state.AppState.userState);
 
-    const handleLogin = (data: any) => {
-        console.log('logged')
+    const handleLogin = async (data: any) => {
+        reset();
+        
+        const { email, password }: {email: string, password: string} = data;
+        
+        try {
+            let response = await axios.post("http://localhost:3001/api/users/login", {
+                email: email,
+                password: password
+            });
+            
+            let data = await response.data;
+            localStorage.setItem("accessToken", data.accessToken);
+            localStorage.setItem("logged", "true");
+            dispatch(setUserState(!userState));
+            router.push('/');
+        } catch (error) {
+            
+        }
     }
+
+    useEffect(() => {
+        if (localStorage.getItem("logged") == "true") {
+            router.push("/");
+        }        
+    }, [])
 
     return (
         <Form title="Authentification" buttonValue={"S'authentifier"} onClick={handleSubmit(handleLogin)}>
