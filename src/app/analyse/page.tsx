@@ -3,7 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faCloudArrowUp
 } from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
+import axios from "axios";
 
 const AnalysePage = () => {
 
@@ -12,10 +13,29 @@ const AnalysePage = () => {
 
     const [fileValue, setFileValue] = useState(null);
 
-    const handleInputChange = (event: any) => {
-        let value = event.target.value;
-        console.log(value);
-        setFileValue(value);
+    const handleImageChange = async (event: any) => {
+        if (event.target.files && event.target.files[0]) {
+            const file = event.target.files[0];
+
+            if (!file.type.startsWith("image/")) {
+                console.error("File is not supported");
+                alert("Vous devez uploader une image");
+                return
+            }   
+
+        try {
+            let fileName = file.name;
+
+            let data = {
+                fileName: fileName
+            }
+
+            let response = await axios.post(`http://localhost:3001/api/users/upload`, data);
+            console.log(response);
+        } catch (error) {
+            console.error('Error uploading file:', error);
+        }
+        }
     }
 
     const handleImport = (event: any) => {
@@ -33,7 +53,7 @@ const AnalysePage = () => {
                 md:w-[40%] md:text-xl          
                 lg:w-[30%] lg:text-base
                 mt-5 flex flex-col bg-[--primary-color] items-center rounded-lg text-[--secondary-color] p-3 cursor-pointer">
-                <input onChange={handleInputChange} ref={inputFileRef} type="file" name="fichier" className={`hidden`}/>
+                <input onChange={handleImageChange} ref={inputFileRef} type="file" name="fichier" className={`hidden`} accept=".jpg, .jpeg, .png" />
                 <h1 className="bg-inherit">Importer votre fichier</h1>
                 <FontAwesomeIcon icon={faCloudArrowUp} className="w-12 h-12 bg-inherit" />
             </div>

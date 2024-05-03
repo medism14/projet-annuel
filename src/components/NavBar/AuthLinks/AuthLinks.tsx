@@ -30,20 +30,24 @@ const Auth = () => {
     useEffect(() => {
         let accessToken = localStorage.getItem('accessToken');
 
-        const checkAccessToken = async (accessToken: any) => {
+        const checkAccessToken = async (accessToken: any) => {  
 
-            try {
-                let response = await axios.get(`http://localhost:3001/api/users/?token=${accessToken}`);
-
-                let data = await response.data;
-
-                if (data.message == "good") {
-                    localStorage.setItem("logged", "true");
-                } else {
-                    localStorage.setItem("logged", "false");
+            if (accessToken) {
+                try {
+                    let response = await axios.get(`http://localhost:3001/api/users/?token=${accessToken}`);
+    
+                    let data = await response.data;
+    
+                    if (data.message == "good") {
+                        localStorage.setItem("logged", "true");
+                    } else {
+                        localStorage.setItem("logged", "false");
+                    }
+                } catch (error) {
+                    console.error(error);
                 }
-            } catch (error) {
-                console.error(error);
+            } else {
+                localStorage.setItem("logged", "false");
             }
         }
         

@@ -5,6 +5,8 @@ import styles from "./NavBar.module.css";
 import AuthLinks from "./AuthLinks/AuthLinks";
 import ImageModified from "../ReusableComponents/ImageModified";
 
+import Link from 'next/link'
+
 const NavBar = ({restClass}: any) => {
     return (
         <div className="flex flex-col pt-3 mb-10">
@@ -12,7 +14,9 @@ const NavBar = ({restClass}: any) => {
                 <div 
                 className="
                 md:flex-1 justify-start">
-                    <ImageModified src="/logo.png" alt="Logo" />
+                    <Link href="/">
+                        <ImageModified src="/logo.png" alt="Logo" />
+                    </Link>
                 </div>
                 <div className={`flex-1 justify-center ${styles.elementRemove}`}>
                     <Links />

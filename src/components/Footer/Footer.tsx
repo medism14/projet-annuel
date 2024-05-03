@@ -4,6 +4,7 @@ import Links from "../NavBar/Links/Links";
 import ImageModified from "../ReusableComponents/ImageModified";
 import styles from "./Footer.module.css";
 import SocialMedia from "./SocialMedia/SocialMedia";
+import Link from "next/link";
 
 const Footer = () => {
 
@@ -25,10 +26,12 @@ const Footer = () => {
             <div className="w-full flex items-center">
                 <div className="flex-1 flex justify-start">
                     {/* Parce qu'il s'affichait lors du rendu du loading */}
-                    <img src="/logo.png" alt="" className="w-[40px] h-[40px]
-                        md:w-[80px] md:h-[80px]
-                        lg:w-[60px] lg:h-[60px]"
-                    />
+                    <Link href="/">
+                        <img src="/logo.png" alt="" className="w-[40px] h-[40px]
+                            md:w-[80px] md:h-[80px]
+                            lg:w-[60px] lg:h-[60px]"
+                        />
+                    </Link>
                 </div>
                 <div className={`flex-1 flex flex-col items-center space-y-3 ${styles.socialMediaLarge}`}>
                     <div className="flex flex-col space-y-3 items-center">
