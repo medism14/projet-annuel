@@ -23,7 +23,6 @@ const Auth = () => {
         localStorage.removeItem("accessToken");
         localStorage.setItem("logged", "false");
         dispatch(setUserState(!userState));
-        router.push('/');
     }
 
     
@@ -42,12 +41,14 @@ const Auth = () => {
                         localStorage.setItem("logged", "true");
                     } else {
                         localStorage.setItem("logged", "false");
+                        localStorage.removeItem("userId");
                     }
                 } catch (error) {
                     console.error(error);
                 }
             } else {
                 localStorage.setItem("logged", "false");
+                localStorage.removeItem("userId");
             }
         }
         

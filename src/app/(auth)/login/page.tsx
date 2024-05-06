@@ -29,6 +29,7 @@ const LoginPage = () => {
             let data = await response.data;
             localStorage.setItem("accessToken", data.accessToken);
             localStorage.setItem("logged", "true");
+            localStorage.setItem("userId", data.userId);
             dispatch(setUserState(!userState));
             router.push('/');
         } catch (error) {

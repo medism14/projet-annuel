@@ -5,12 +5,14 @@ import { useForm } from 'react-hook-form';
 import { registerSubmit } from '@/lib/action';
 import axios from "axios";
 import emailjs from 'emailjs-com';
+import { useAppSelector } from "@/redux/hooks";
 
 
 const ContactPage = () => {
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
     const [mailSended, setMailSended] = useState(false);
+    let userState = useAppSelector(state => state.AppState.userState);
 
     const sendMail = async (data: any) => {
         let { firstName, title, message } = data;
