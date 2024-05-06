@@ -21,6 +21,16 @@ model User {
   name  String?
   password String
   salt String
+  images Image[] // Add this line
 }
 
+model Image {
+  id                   String   @id @default(auto()) @map("_id") @db.ObjectId
+  base64Img            String   
+  date                 DateTime?
+  predictedClass       String
+  predictedProbability String?
+  userId               String?  // Make this field optional
+  user                 User?    @relation(fields: [userId], references: [id])
+}
 

@@ -1,7 +1,8 @@
-import { FastifyInstance } from "fastify";
+import fastify, { FastifyInstance } from "fastify";
 import {decodetoken,loginHandler, registerUserHandler, getUsersHandler, deleteUsersHandler, updateUserHandler, UploadFile} from './user.controller'
 import { $ref } from "./user.schema";
 import { string } from "zod";
+
 async function userRoutes(server: FastifyInstance){
 
 //register route
@@ -23,7 +24,14 @@ server.post('/login', {
     schema:{
         body: $ref('loginSchema'),
         response:{
-            200:$ref('loginResponseSchema')
+            // 200:$ref('loginResponseSchema'),
+            200: {
+                type: 'object',
+                properties: {
+                    accessToken: { type: 'string' },
+                    userId: { type: 'string' }
+                }
+            }
         }
     }
 }, loginHandler)
@@ -81,13 +89,17 @@ server.delete('/:id', {
 server.post('/upload', {
     schema: {
         body: {
-            fileName: { type: 'string' }
+            fileName: { type: 'string' },
+            base64: { type: 'string' },
+            userId: {}
         },
         response: {
             200: {
                 type: 'object',
                 properties: {
-                    message: { type: 'string' }
+                    fileName: { type: 'string' },
+                    predictedClass: { type: 'string' },
+                    predictedProba: { type: 'string' }
                 }
             }
         }

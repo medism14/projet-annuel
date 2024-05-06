@@ -4,7 +4,7 @@ import { CreateUserInput } from "./user.schema";
 
 export async function CreateUser(input: CreateUserInput){
 
-    const{password, ...rest } = input;
+    const {password, ...rest } = input;
     const {hash, salt} = hashPassword(password)
     
     const user = await prisma.user.create({
@@ -15,6 +15,21 @@ export async function CreateUser(input: CreateUserInput){
 return user;
 }
 
+export async function createImage(input: any) {
+    const newImage = {
+        base64Img: input.base64Img,
+        date: new Date(input.currentDateTime).toISOString(),
+        predictedClass: input.predictedClass,
+        predictedProbability: input.predictedProba,
+        userId: input.userId,
+    };
+
+    const result = await prisma.image.create({
+        data: newImage
+    });
+
+    return result;
+}
 
 export async function findUserByEmail(email: string ){
 

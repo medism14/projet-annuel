@@ -4,8 +4,9 @@ import {userSchemas} from "./modules/user/user.schema"
 import fjwt from "@fastify/jwt";
 import cors from '@fastify/cors'
 
-export const server = Fastify();
-
+export const server = Fastify({
+    bodyLimit: 15 * 1024 * 1024, // 15MB
+  });
 
 server.register(cors, { 
     origin: ["http://localhost:3000"],
