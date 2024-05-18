@@ -31,7 +31,7 @@ const LoginPage = () => {
             localStorage.setItem("logged", "true");
             localStorage.setItem("userId", data.userId);
             dispatch(setUserState(!userState));
-            router.push('/');
+            router.push('/analyse');
         } catch (error) {
             
         }
